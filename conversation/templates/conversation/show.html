@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block title %}Conversation{% endblock %}
+{% block content %}
+<h1>Conversation</h1>
+
+<div class="row">
+
+    {%for message in conversation.messages.all %}
+    <div class="col col-12 rounded mb-3 p-3 border {%if message.user == request.user %} bg-light {%endif%}">
+        <p><strong> {{ message.user.username }} </strong> | @ {{ message.created_at}}</p>
+        <p>{{ message.text }}</p>
+    </div>
+    {%endfor%}
+
+</div>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success">
+        Send
+    </button>
+</form>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+
+<div>
+    <form action="{% url 'item:items' %}" class="d-flex" role="search">
+        <input value="{{ query }}" name="search" class="form-control me-2" type="search" placeholder="Search"
+               aria-label="Search">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+</div>
+<div class="row mt-5">
+    <div class="col col-3">
+        <div class="bg-light p-3 rounded">
+            <p>Categories</p>
+            {% for cat in categories%}
+            <p class="ms-3"><a class="{% if cat_id == cat.id %} bg-secondary rounded p-2 text-white {%else%} text-black{%endif%} " href="{% url 'item:items' %}?search={{query}}&category={{cat.id}}">{{cat}}</a></p>
+            {% endfor %}
+        <a class="btn btn-warning" href="{%url 'item:items'%}">Reset Search</a>
+        </div>
+    </div>
+    <div class="col col-9 bg-light">
+        <div class="rounded bg-light p-3">
+            <div class="row">
+                {% for item in items%}
+                <div class="col col-4 mb-4">
+                    <div class="card">
+                        <img src="{{ item.image.url }}" class="card-img-top img-thumbnail" style="aspect-ratio:1"
+                             alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item }}</h5>
+                            <p class="card-text">{{ item.description}}</p>
+                            <p class="card-text">Price: {{ item.price}}</p>
+                            <a href="{% url 'item:show' item.id %}" class="btn btn-primary">Buy</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

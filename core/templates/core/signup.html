@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form method="post">
+    {% if form.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        Your form has errors
+        {% for field in form %}
+        {% if field.errors %}
+        {{ field.errors }}
+        {% endif %}
+        {% endfor %}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success">
+        Register
+    </button>
+</form>
+{% endblock %}

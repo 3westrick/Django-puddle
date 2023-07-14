@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h1>Newest items</h1>
+
+<div class="row">
+{% for item in items%}
+<div class="col col-4 mb-4">
+    <div class="card">
+          <img src="{{ item.image.url }}" class="card-img-top img-thumbnail" style="aspect-ratio:1" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ item }}</h5>
+    <p class="card-text">{{ item.description}}</p>
+    <p class="card-text">Price: {{ item.price}}</p>
+    <a href="{% url 'item:show' item.id %}" class="btn btn-primary">Buy</a>
+  </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+
+
+<div class="row mt-5">
+    <h4 class="text-center mb-3">Categories</h4>
+    {% for category in categories%}
+    <div class="col col-4">
+        <div class="card">
+            <div class="card-body">
+                <p>{{ category }}: {{ category.items.count }} items</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

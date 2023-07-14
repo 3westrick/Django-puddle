@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block title %}Inbox{% endblock %}
+{% block content %}
+<h1>Inbox</h1>
+<div class="row">
+    {% for conversation in conversations%}
+
+        <div class="col col-12 bg-light rounded mb-3 p-3">
+            <a style="text-decoration:none; color:black" href="{% url 'conversation:conv' conversation.id %}">
+                <div class="d-flex">
+                    <div>
+                        <img class="rounded" src="{{ conversation.item.image.url }}" height="60px">
+                    </div>
+                    <div class="col ms-4">
+                        {%for member in conversation.members.all %}
+                        {% if member != request.user %}
+                        <p><strong>{{member.username}}</strong> | {{conversation.updated_at}}</p>
+                        <p>{{ conversation.item.name }}</p>
+                        {%endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </a>
+        </div>
+    {%endfor%}
+</div>
+{% endblock %}
